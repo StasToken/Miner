@@ -1,0 +1,22 @@
+-main ApplicationMain 
+--macro openfl._internal.utils.ExtraParams.include()
+-cp /home/x41/haxelib/openfl/4,7,3
+-D openfl=4.7.3
+--macro lime.Lib.extraParams()
+-cp /home/x41/haxelib/lime/3,7,2
+-D lime=3.7.2
+-cp Source
+-D tools=3.7.2
+-D howlerjs
+-D no-compilation
+-D lime-opengl
+-D openfl-html5
+-D lime-html5
+-D html5
+-D web
+--remap flash:openfl
+-resource Export/html5/release/obj/manifest@__ASSET_MANIFEST__
+-js Export/html5/release/bin/Miner.js
+-cp Export/html5/release/haxe
+-D html5
+-debug
