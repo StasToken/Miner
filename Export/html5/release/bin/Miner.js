@@ -14,7 +14,7 @@ var ApplicationMain = function() { };
 $hxClasses["ApplicationMain"] = ApplicationMain;
 ApplicationMain.__name__ = ["ApplicationMain"];
 ApplicationMain.main = function() {
-	ApplicationMain.config = { build : "2", company : "Company Name", file : "Miner", fps : 60, name : "Miner", orientation : "", packageName : "com.sample.miner", version : "1.0.0", windows : [{ allowHighDPI : false, antialiasing : 0, background : 3355443, borderless : false, depthBuffer : false, display : 0, fullscreen : false, hardware : true, height : 500, hidden : null, maximized : null, minimized : null, parameters : "{}", resizable : true, stencilBuffer : true, title : "Miner", vsync : false, width : 500, x : null, y : null}]};
+	ApplicationMain.config = { build : "3", company : "Company Name", file : "Miner", fps : 60, name : "Miner", orientation : "", packageName : "com.sample.miner", version : "1.0.0", windows : [{ allowHighDPI : false, antialiasing : 0, background : 3355443, borderless : false, depthBuffer : false, display : 0, fullscreen : false, hardware : true, height : 500, hidden : null, maximized : null, minimized : null, parameters : "{}", resizable : true, stencilBuffer : true, title : "Miner", vsync : false, width : 500, x : null, y : null}]};
 };
 ApplicationMain.create = function() {
 	var app = new openfl_display_Application();
@@ -1750,11 +1750,7 @@ openfl_display_Sprite.prototype = $extend(openfl_display_DisplayObjectContainer.
 });
 var Main = function() {
 	openfl_display_Sprite.call(this);
-	var bitmapData = openfl_Assets.getBitmapData("assets/harvester1.png");
-	var bitmap = new openfl_display_Bitmap(bitmapData);
-	this.addChild(bitmap);
-	bitmap.set_x(100);
-	bitmap.set_y(200);
+	this.init();
 };
 $hxClasses["Main"] = Main;
 Main.__name__ = ["Main"];
@@ -1762,13 +1758,57 @@ Main.__super__ = openfl_display_Sprite;
 Main.prototype = $extend(openfl_display_Sprite.prototype,{
 	inited: null
 	,harvester: null
+	,loadFon: null
+	,currentGameState: null
+	,scorePlayer: null
+	,scoreField: null
+	,messageField: null
 	,init: function() {
 		if(this.inited) {
 			return;
 		}
 		this.inited = true;
+		var scoreFormat = new openfl_text_TextFormat("Verdana",24,12303291,true);
+		scoreFormat.align = 0;
+		this.scoreField = new openfl_text_TextField();
+		this.addChild(this.scoreField);
+		this.scoreField.set_width(500);
+		this.scoreField.set_y(30);
+		this.scoreField.set_defaultTextFormat(scoreFormat);
+		this.scoreField.set_selectable(false);
+		var messageFormat = new openfl_text_TextFormat("Verdana",18,12303291,true);
+		messageFormat.align = 0;
+		this.messageField = new openfl_text_TextField();
+		this.addChild(this.messageField);
+		this.messageField.set_width(500);
+		this.messageField.set_y(450);
+		this.messageField.set_defaultTextFormat(messageFormat);
+		this.messageField.set_selectable(false);
+		this.messageField.set_text("Press SPACE to start");
+		this.scorePlayer = 0;
+		this.loadFon = new LoadFon();
+		this.addChild(this.loadFon);
 		this.harvester = new Harvester();
 		this.addChild(this.harvester);
+		this.setGameState(GameState.Paused);
+		this.stage.addEventListener("keyDown",$bind(this,this.keyDown));
+	}
+	,keyDown: function(event) {
+		if(this.currentGameState == GameState.Paused && event.keyCode == 32) {
+			this.setGameState(GameState.Playing);
+		}
+	}
+	,updateScore: function() {
+		this.scoreField.set_text(this.scorePlayer + "\n");
+	}
+	,setGameState: function(state) {
+		this.currentGameState = state;
+		this.updateScore();
+		if(state == GameState.Paused) {
+			this.messageField.set_alpha(1);
+		} else {
+			this.messageField.set_alpha(0);
+		}
 	}
 	,__class__: Main
 });
@@ -2459,26 +2499,103 @@ var DefaultAssetLibrary = function() {
 		this.rootPath = "";
 	}
 	var useManifest = true;
-	var id = "assets/img/harvester1.png";
+	var id = "assets/psd/harvester_right.psd";
 	var _this = this.preload;
 	if(__map_reserved[id] != null) {
 		_this.setReserved(id,true);
 	} else {
 		_this.h[id] = true;
 	}
-	id = "assets/img/nod_harvester__ingame_183.png";
+	id = "assets/psd/harvester_down.psd";
 	var _this1 = this.preload;
 	if(__map_reserved[id] != null) {
 		_this1.setReserved(id,true);
 	} else {
 		_this1.h[id] = true;
 	}
-	id = "assets/img/start.jpg";
+	id = "assets/psd/earth.psd";
 	var _this2 = this.preload;
 	if(__map_reserved[id] != null) {
 		_this2.setReserved(id,true);
 	} else {
 		_this2.h[id] = true;
+	}
+	id = "assets/psd/harvester_up.psd";
+	var _this3 = this.preload;
+	if(__map_reserved[id] != null) {
+		_this3.setReserved(id,true);
+	} else {
+		_this3.h[id] = true;
+	}
+	id = "assets/psd/harvester_left.psd";
+	var _this4 = this.preload;
+	if(__map_reserved[id] != null) {
+		_this4.setReserved(id,true);
+	} else {
+		_this4.h[id] = true;
+	}
+	id = "assets/img/harvester_right.png";
+	var _this5 = this.preload;
+	if(__map_reserved[id] != null) {
+		_this5.setReserved(id,true);
+	} else {
+		_this5.h[id] = true;
+	}
+	id = "assets/img/earth.png";
+	var _this6 = this.preload;
+	if(__map_reserved[id] != null) {
+		_this6.setReserved(id,true);
+	} else {
+		_this6.h[id] = true;
+	}
+	id = "assets/img/harvester_up.png";
+	var _this7 = this.preload;
+	if(__map_reserved[id] != null) {
+		_this7.setReserved(id,true);
+	} else {
+		_this7.h[id] = true;
+	}
+	id = "assets/img/fon.png";
+	var _this8 = this.preload;
+	if(__map_reserved[id] != null) {
+		_this8.setReserved(id,true);
+	} else {
+		_this8.h[id] = true;
+	}
+	id = "assets/img/harvester1.png";
+	var _this9 = this.preload;
+	if(__map_reserved[id] != null) {
+		_this9.setReserved(id,true);
+	} else {
+		_this9.h[id] = true;
+	}
+	id = "assets/img/harvester_down.png";
+	var _this10 = this.preload;
+	if(__map_reserved[id] != null) {
+		_this10.setReserved(id,true);
+	} else {
+		_this10.h[id] = true;
+	}
+	id = "assets/img/harvester_left.png";
+	var _this11 = this.preload;
+	if(__map_reserved[id] != null) {
+		_this11.setReserved(id,true);
+	} else {
+		_this11.h[id] = true;
+	}
+	id = "assets/img/nod_harvester__ingame_183.png";
+	var _this12 = this.preload;
+	if(__map_reserved[id] != null) {
+		_this12.setReserved(id,true);
+	} else {
+		_this12.h[id] = true;
+	}
+	id = "assets/img/start.jpg";
+	var _this13 = this.preload;
+	if(__map_reserved[id] != null) {
+		_this13.setReserved(id,true);
+	} else {
+		_this13.h[id] = true;
 	}
 	if(useManifest) {
 		this.loadManifest();
@@ -2504,7 +2621,7 @@ DefaultAssetLibrary.prototype = $extend(lime_utils_AssetLibrary.prototype,{
 				manifest2.basePath = this.rootPath;
 				this.__fromManifest(manifest2);
 			} else {
-				lime_utils_Log.warn("Could not load asset manifest (bytes was null)",{ fileName : "DefaultAssetLibrary.hx", lineNumber : 141, className : "DefaultAssetLibrary", methodName : "loadManifest"});
+				lime_utils_Log.warn("Could not load asset manifest (bytes was null)",{ fileName : "DefaultAssetLibrary.hx", lineNumber : 218, className : "DefaultAssetLibrary", methodName : "loadManifest"});
 			}
 		}
 	}
@@ -2565,7 +2682,7 @@ EReg.prototype = {
 };
 var Harvester = function() {
 	openfl_display_Sprite.call(this);
-	var bitmapData = openfl_Assets.getBitmapData("assets/harvester1.png");
+	var bitmapData = openfl_Assets.getBitmapData("assets/img/harvester_up.png");
 	var bitmap = new openfl_display_Bitmap(bitmapData);
 	this.addChild(bitmap);
 	bitmap.set_x(100);
@@ -2718,6 +2835,25 @@ _$List_ListIterator.prototype = {
 	}
 	,__class__: _$List_ListIterator
 };
+var LoadFon = function() {
+	openfl_display_Sprite.call(this);
+	var bitmapData = openfl_Assets.getBitmapData("assets/img/fon.png");
+	var bitmap = new openfl_display_Bitmap(bitmapData);
+	this.addChild(bitmap);
+};
+$hxClasses["LoadFon"] = LoadFon;
+LoadFon.__name__ = ["LoadFon"];
+LoadFon.__super__ = openfl_display_Sprite;
+LoadFon.prototype = $extend(openfl_display_Sprite.prototype,{
+	__class__: LoadFon
+});
+var GameState = $hxClasses["GameState"] = { __ename__ : ["GameState"], __constructs__ : ["Paused","Playing"] };
+GameState.Paused = ["Paused",0];
+GameState.Paused.toString = $estr;
+GameState.Paused.__enum__ = GameState;
+GameState.Playing = ["Playing",1];
+GameState.Playing.toString = $estr;
+GameState.Playing.__enum__ = GameState;
 Math.__name__ = ["Math"];
 var Reflect = function() { };
 $hxClasses["Reflect"] = Reflect;
@@ -18977,7 +19113,7 @@ var lime_utils_AssetCache = function() {
 	this.audio = new haxe_ds_StringMap();
 	this.font = new haxe_ds_StringMap();
 	this.image = new haxe_ds_StringMap();
-	this.version = 980963;
+	this.version = 498837;
 };
 $hxClasses["lime.utils.AssetCache"] = lime_utils_AssetCache;
 lime_utils_AssetCache.__name__ = ["lime","utils","AssetCache"];
@@ -53458,7 +53594,7 @@ var Bool = $hxClasses["Bool"] = Boolean;
 Bool.__ename__ = ["Bool"];
 var Class = $hxClasses["Class"] = { __name__ : ["Class"]};
 var Enum = { };
-haxe_Resource.content = [{ name : "__ASSET_MANIFEST__", data : "eyJuYW1lIjpudWxsLCJhc3NldHMiOiJhb3k0OnBhdGh5Mjk6YXNzZXRzJTJGaW1nJTJGaGFydmVzdGVyMS5wbmd5NDpzaXplaTg0MDUzeTQ6dHlwZXk1OklNQUdFeTI6aWRSMWdvUjB5NDQ6YXNzZXRzJTJGaW1nJTJGbm9kX2hhcnZlc3Rlcl9faW5nYW1lXzE4My5wbmdSMmk4NDA1M1IzUjRSNVI2Z29SMHkyNDphc3NldHMlMkZpbWclMkZzdGFydC5qcGdSMmkyMDI4NzhSM1I0UjVSN2doIiwidmVyc2lvbiI6MiwibGlicmFyeUFyZ3MiOltdLCJsaWJyYXJ5VHlwZSI6bnVsbH0"}];
+haxe_Resource.content = [{ name : "__ASSET_MANIFEST__", data : "eyJuYW1lIjpudWxsLCJhc3NldHMiOiJhb3k0OnBhdGh5MzQ6YXNzZXRzJTJGcHNkJTJGaGFydmVzdGVyX3JpZ2h0LnBzZHk0OnNpemVpMzA5Nzh5NDp0eXBleTY6QklOQVJZeTI6aWRSMWdvUjB5MzM6YXNzZXRzJTJGcHNkJTJGaGFydmVzdGVyX2Rvd24ucHNkUjJpMzIzMjBSM1I0UjVSNmdvUjB5MjQ6YXNzZXRzJTJGcHNkJTJGZWFydGgucHNkUjJpMjU4MThSM1I0UjVSN2dvUjB5MzE6YXNzZXRzJTJGcHNkJTJGaGFydmVzdGVyX3VwLnBzZFIyaTMwMDMwUjNSNFI1Ujhnb1IweTMzOmFzc2V0cyUyRnBzZCUyRmhhcnZlc3Rlcl9sZWZ0LnBzZFIyaTMwMjk2UjNSNFI1Ujlnb1IweTM0OmFzc2V0cyUyRmltZyUyRmhhcnZlc3Rlcl9yaWdodC5wbmdSMmkzMjkzUjN5NTpJTUFHRVI1UjEwZ29SMHkyNDphc3NldHMlMkZpbWclMkZlYXJ0aC5wbmdSMmkyMTMwUjNSMTFSNVIxMmdvUjB5MzE6YXNzZXRzJTJGaW1nJTJGaGFydmVzdGVyX3VwLnBuZ1IyaTMxNzJSM1IxMVI1UjEzZ29SMHkyMjphc3NldHMlMkZpbWclMkZmb24ucG5nUjJpMjQ0NjZSM1IxMVI1UjE0Z29SMHkyOTphc3NldHMlMkZpbWclMkZoYXJ2ZXN0ZXIxLnBuZ1IyaTg0MDUzUjNSMTFSNVIxNWdvUjB5MzM6YXNzZXRzJTJGaW1nJTJGaGFydmVzdGVyX2Rvd24ucG5nUjJpMzI2M1IzUjExUjVSMTZnb1IweTMzOmFzc2V0cyUyRmltZyUyRmhhcnZlc3Rlcl9sZWZ0LnBuZ1IyaTMwMjdSM1IxMVI1UjE3Z29SMHk0NDphc3NldHMlMkZpbWclMkZub2RfaGFydmVzdGVyX19pbmdhbWVfMTgzLnBuZ1IyaTg0MDUzUjNSMTFSNVIxOGdvUjB5MjQ6YXNzZXRzJTJGaW1nJTJGc3RhcnQuanBnUjJpMjAyODc4UjNSMTFSNVIxOWdoIiwidmVyc2lvbiI6MiwibGlicmFyeUFyZ3MiOltdLCJsaWJyYXJ5VHlwZSI6bnVsbH0"}];
 var __map_reserved = {}
 var ArrayBuffer = $global.ArrayBuffer || js_html_compat_ArrayBuffer;
 if(ArrayBuffer.prototype.slice == null) {

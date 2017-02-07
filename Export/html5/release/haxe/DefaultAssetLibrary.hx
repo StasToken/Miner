@@ -52,11 +52,88 @@ import sys.FileSystem;
 		
 		var useManifest = #if html5 true #else false #end;
 		var id;
+		id = "assets/psd/harvester_right.psd";
+		#if html5
+		preload.set (id, true);
+		#elseif (desktop || cpp || flash)
+		classTypes.set (id, __ASSET__assets_psd_harvester_right_psd);
+		types.set (id, AssetType.BINARY);
+		#end
+		id = "assets/psd/harvester_down.psd";
+		#if html5
+		preload.set (id, true);
+		#elseif (desktop || cpp || flash)
+		classTypes.set (id, __ASSET__assets_psd_harvester_down_psd);
+		types.set (id, AssetType.BINARY);
+		#end
+		id = "assets/psd/earth.psd";
+		#if html5
+		preload.set (id, true);
+		#elseif (desktop || cpp || flash)
+		classTypes.set (id, __ASSET__assets_psd_earth_psd);
+		types.set (id, AssetType.BINARY);
+		#end
+		id = "assets/psd/harvester_up.psd";
+		#if html5
+		preload.set (id, true);
+		#elseif (desktop || cpp || flash)
+		classTypes.set (id, __ASSET__assets_psd_harvester_up_psd);
+		types.set (id, AssetType.BINARY);
+		#end
+		id = "assets/psd/harvester_left.psd";
+		#if html5
+		preload.set (id, true);
+		#elseif (desktop || cpp || flash)
+		classTypes.set (id, __ASSET__assets_psd_harvester_left_psd);
+		types.set (id, AssetType.BINARY);
+		#end
+		id = "assets/img/harvester_right.png";
+		#if html5
+		preload.set (id, true);
+		#elseif (desktop || cpp || flash)
+		classTypes.set (id, __ASSET__assets_img_harvester_right_png);
+		types.set (id, AssetType.IMAGE);
+		#end
+		id = "assets/img/earth.png";
+		#if html5
+		preload.set (id, true);
+		#elseif (desktop || cpp || flash)
+		classTypes.set (id, __ASSET__assets_img_earth_png);
+		types.set (id, AssetType.IMAGE);
+		#end
+		id = "assets/img/harvester_up.png";
+		#if html5
+		preload.set (id, true);
+		#elseif (desktop || cpp || flash)
+		classTypes.set (id, __ASSET__assets_img_harvester_up_png);
+		types.set (id, AssetType.IMAGE);
+		#end
+		id = "assets/img/fon.png";
+		#if html5
+		preload.set (id, true);
+		#elseif (desktop || cpp || flash)
+		classTypes.set (id, __ASSET__assets_img_fon_png);
+		types.set (id, AssetType.IMAGE);
+		#end
 		id = "assets/img/harvester1.png";
 		#if html5
 		preload.set (id, true);
 		#elseif (desktop || cpp || flash)
 		classTypes.set (id, __ASSET__assets_img_harvester1_png);
+		types.set (id, AssetType.IMAGE);
+		#end
+		id = "assets/img/harvester_down.png";
+		#if html5
+		preload.set (id, true);
+		#elseif (desktop || cpp || flash)
+		classTypes.set (id, __ASSET__assets_img_harvester_down_png);
+		types.set (id, AssetType.IMAGE);
+		#end
+		id = "assets/img/harvester_left.png";
+		#if html5
+		preload.set (id, true);
+		#elseif (desktop || cpp || flash)
+		classTypes.set (id, __ASSET__assets_img_harvester_left_png);
 		types.set (id, AssetType.IMAGE);
 		#end
 		id = "assets/img/nod_harvester__ingame_183.png";
@@ -173,14 +250,31 @@ import sys.FileSystem;
 #if !display
 #if flash
 
+@:keep @:bind #if display private #end class __ASSET__assets_psd_harvester_right_psd extends null { }
+@:keep @:bind #if display private #end class __ASSET__assets_psd_harvester_down_psd extends null { }
+@:keep @:bind #if display private #end class __ASSET__assets_psd_earth_psd extends null { }
+@:keep @:bind #if display private #end class __ASSET__assets_psd_harvester_up_psd extends null { }
+@:keep @:bind #if display private #end class __ASSET__assets_psd_harvester_left_psd extends null { }
+@:keep @:bind #if display private #end class __ASSET__assets_img_harvester_right_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__assets_img_earth_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__assets_img_harvester_up_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__assets_img_fon_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_img_harvester1_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__assets_img_harvester_down_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__assets_img_harvester_left_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_img_nod_harvester__ingame_183_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_img_start_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 
 
 #elseif (desktop || cpp)
 
+@:file("Assets/psd/harvester_right.psd") #if display private #end class __ASSET__assets_psd_harvester_right_psd extends haxe.io.Bytes {}@:file("Assets/psd/harvester_down.psd") #if display private #end class __ASSET__assets_psd_harvester_down_psd extends haxe.io.Bytes {}@:file("Assets/psd/earth.psd") #if display private #end class __ASSET__assets_psd_earth_psd extends haxe.io.Bytes {}@:file("Assets/psd/harvester_up.psd") #if display private #end class __ASSET__assets_psd_harvester_up_psd extends haxe.io.Bytes {}@:file("Assets/psd/harvester_left.psd") #if display private #end class __ASSET__assets_psd_harvester_left_psd extends haxe.io.Bytes {}@:image("Assets/img/harvester_right.png") #if display private #end class __ASSET__assets_img_harvester_right_png extends lime.graphics.Image {}
+@:image("Assets/img/earth.png") #if display private #end class __ASSET__assets_img_earth_png extends lime.graphics.Image {}
+@:image("Assets/img/harvester_up.png") #if display private #end class __ASSET__assets_img_harvester_up_png extends lime.graphics.Image {}
+@:image("Assets/img/fon.png") #if display private #end class __ASSET__assets_img_fon_png extends lime.graphics.Image {}
 @:image("Assets/img/harvester1.png") #if display private #end class __ASSET__assets_img_harvester1_png extends lime.graphics.Image {}
+@:image("Assets/img/harvester_down.png") #if display private #end class __ASSET__assets_img_harvester_down_png extends lime.graphics.Image {}
+@:image("Assets/img/harvester_left.png") #if display private #end class __ASSET__assets_img_harvester_left_png extends lime.graphics.Image {}
 @:image("Assets/img/nod_harvester__ingame_183.png") #if display private #end class __ASSET__assets_img_nod_harvester__ingame_183_png extends lime.graphics.Image {}
 @:image("Assets/img/start.jpg") #if display private #end class __ASSET__assets_img_start_jpg extends lime.graphics.Image {}
 
