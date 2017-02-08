@@ -14,7 +14,7 @@ var ApplicationMain = function() { };
 $hxClasses["ApplicationMain"] = ApplicationMain;
 ApplicationMain.__name__ = ["ApplicationMain"];
 ApplicationMain.main = function() {
-	ApplicationMain.config = { build : "3", company : "Company Name", file : "Miner", fps : 60, name : "Miner", orientation : "", packageName : "com.sample.miner", version : "1.0.0", windows : [{ allowHighDPI : false, antialiasing : 0, background : 3355443, borderless : false, depthBuffer : false, display : 0, fullscreen : false, hardware : true, height : 500, hidden : null, maximized : null, minimized : null, parameters : "{}", resizable : true, stencilBuffer : true, title : "Miner", vsync : false, width : 500, x : null, y : null}]};
+	ApplicationMain.config = { build : "5", company : "Company Name", file : "Miner", fps : 60, name : "Miner", orientation : "", packageName : "com.sample.miner", version : "1.0.0", windows : [{ allowHighDPI : false, antialiasing : 0, background : 3355443, borderless : false, depthBuffer : false, display : 0, fullscreen : false, hardware : true, height : 500, hidden : null, maximized : null, minimized : null, parameters : "{}", resizable : true, stencilBuffer : true, title : "Miner", vsync : false, width : 500, x : null, y : null}]};
 };
 ApplicationMain.create = function() {
 	var app = new openfl_display_Application();
@@ -1751,6 +1751,9 @@ openfl_display_Sprite.prototype = $extend(openfl_display_DisplayObjectContainer.
 var Main = function() {
 	openfl_display_Sprite.call(this);
 	this.init();
+	openfl_Lib.current.stage.align = 6;
+	openfl_Lib.current.stage.scaleMode = 2;
+	openfl_Lib.current.addChild(new Main());
 };
 $hxClasses["Main"] = Main;
 Main.__name__ = ["Main"];
@@ -1763,11 +1766,17 @@ Main.prototype = $extend(openfl_display_Sprite.prototype,{
 	,scorePlayer: null
 	,scoreField: null
 	,messageField: null
+	,arrowKeyUp: null
+	,arrowKeyDown: null
+	,harvesterSpeed: null
 	,init: function() {
 		if(this.inited) {
 			return;
 		}
 		this.inited = true;
+		this.arrowKeyUp = false;
+		this.arrowKeyDown = false;
+		this.harvesterSpeed = 7;
 		var scoreFormat = new openfl_text_TextFormat("Verdana",24,12303291,true);
 		scoreFormat.align = 0;
 		this.scoreField = new openfl_text_TextField();
@@ -1792,14 +1801,42 @@ Main.prototype = $extend(openfl_display_Sprite.prototype,{
 		this.addChild(this.harvester);
 		this.setGameState(GameState.Paused);
 		this.stage.addEventListener("keyDown",$bind(this,this.keyDown));
+		this.stage.addEventListener("keyUp",$bind(this,this.keyUp));
+		this.addEventListener("enterFrame",$bind(this,this.everyFrame));
+	}
+	,everyFrame: function(event) {
+		if(this.currentGameState == GameState.Playing) {
+			if(this.arrowKeyUp) {
+				var _g = this.harvester;
+				_g.set_y(_g.get_y() - this.harvesterSpeed);
+			}
+			if(this.arrowKeyDown) {
+				var _g1 = this.harvester;
+				_g1.set_y(_g1.get_y() + this.harvesterSpeed);
+			}
+			if(this.harvester.get_y() < 5) {
+				this.harvester.set_y(5);
+			}
+			if(this.harvester.get_y() > 395) {
+				this.harvester.set_y(395);
+			}
+		}
 	}
 	,keyDown: function(event) {
 		if(this.currentGameState == GameState.Paused && event.keyCode == 32) {
 			this.setGameState(GameState.Playing);
+		} else if(event.keyCode == 38) {
+			this.arrowKeyUp = true;
+		} else if(event.keyCode == 40) {
+			this.arrowKeyDown = true;
 		}
 	}
-	,updateScore: function() {
-		this.scoreField.set_text(this.scorePlayer + "\n");
+	,keyUp: function(event) {
+		if(event.keyCode == 38) {
+			this.arrowKeyUp = false;
+		} else if(event.keyCode == 40) {
+			this.arrowKeyDown = false;
+		}
 	}
 	,setGameState: function(state) {
 		this.currentGameState = state;
@@ -1808,7 +1845,12 @@ Main.prototype = $extend(openfl_display_Sprite.prototype,{
 			this.messageField.set_alpha(1);
 		} else {
 			this.messageField.set_alpha(0);
+			this.harvester.set_y(200);
+			this.harvester.set_y(200);
 		}
+	}
+	,updateScore: function() {
+		this.scoreField.set_text(this.scorePlayer + "\n");
 	}
 	,__class__: Main
 });
@@ -19113,7 +19155,7 @@ var lime_utils_AssetCache = function() {
 	this.audio = new haxe_ds_StringMap();
 	this.font = new haxe_ds_StringMap();
 	this.image = new haxe_ds_StringMap();
-	this.version = 498837;
+	this.version = 403187;
 };
 $hxClasses["lime.utils.AssetCache"] = lime_utils_AssetCache;
 lime_utils_AssetCache.__name__ = ["lime","utils","AssetCache"];

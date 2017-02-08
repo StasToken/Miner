@@ -28,7 +28,7 @@ import DefaultAssetLibrary;
 		
 		config = {
 			
-			build: "4",
+			build: "5",
 			company: "Company Name",
 			file: "Miner",
 			fps: 60,
