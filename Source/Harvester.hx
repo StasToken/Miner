@@ -12,8 +12,8 @@ class Harvester extends Sprite
         var bitmap = new Bitmap (bitmapData);
         addChild (bitmap);
 
-        bitmap.x = 100;
-        bitmap.y = 200;
+        bitmap.x = 170;
+        bitmap.y = 50;
     }
 
 }

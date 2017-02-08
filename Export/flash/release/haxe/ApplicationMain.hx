@@ -28,7 +28,7 @@ import DefaultAssetLibrary;
 		
 		config = {
 			
-			build: "5",
+			build: "6",
 			company: "Company Name",
 			file: "Miner",
 			fps: 60,
@@ -47,7 +47,7 @@ import DefaultAssetLibrary;
 					display: 0,
 					fullscreen: false,
 					hardware: true,
-					height: 500,
+					height: 300,
 					hidden: #if munit true #else null #end,
 					maximized: null,
 					minimized: null,
@@ -56,7 +56,7 @@ import DefaultAssetLibrary;
 					stencilBuffer: true,
 					title: "Miner",
 					vsync: false,
-					width: 500,
+					width: 448,
 					x: null,
 					y: null
 				},
@@ -74,7 +74,7 @@ import DefaultAssetLibrary;
 		
 		#if (js && html5)
 		#if (munit || utest)
-		embed (null, 500, 500, "333333");
+		embed (null, 448, 300, "333333");
 		#end
 		#else
 		create ();

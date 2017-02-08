@@ -14,7 +14,7 @@ var ApplicationMain = function() { };
 $hxClasses["ApplicationMain"] = ApplicationMain;
 ApplicationMain.__name__ = ["ApplicationMain"];
 ApplicationMain.main = function() {
-	ApplicationMain.config = { build : "5", company : "Company Name", file : "Miner", fps : 60, name : "Miner", orientation : "", packageName : "com.sample.miner", version : "1.0.0", windows : [{ allowHighDPI : false, antialiasing : 0, background : 3355443, borderless : false, depthBuffer : false, display : 0, fullscreen : false, hardware : true, height : 500, hidden : null, maximized : null, minimized : null, parameters : "{}", resizable : true, stencilBuffer : true, title : "Miner", vsync : false, width : 500, x : null, y : null}]};
+	ApplicationMain.config = { build : "6", company : "Company Name", file : "Miner", fps : 60, name : "Miner", orientation : "", packageName : "com.sample.miner", version : "1.0.0", windows : [{ allowHighDPI : false, antialiasing : 0, background : 3355443, borderless : false, depthBuffer : false, display : 0, fullscreen : false, hardware : true, height : 300, hidden : null, maximized : null, minimized : null, parameters : "{}", resizable : true, stencilBuffer : true, title : "Miner", vsync : false, width : 448, x : null, y : null}]};
 };
 ApplicationMain.create = function() {
 	var app = new openfl_display_Application();
@@ -1768,6 +1768,8 @@ Main.prototype = $extend(openfl_display_Sprite.prototype,{
 	,messageField: null
 	,arrowKeyUp: null
 	,arrowKeyDown: null
+	,arrowKeyLeft: null
+	,arrowKeyRight: null
 	,harvesterSpeed: null
 	,init: function() {
 		if(this.inited) {
@@ -1776,6 +1778,8 @@ Main.prototype = $extend(openfl_display_Sprite.prototype,{
 		this.inited = true;
 		this.arrowKeyUp = false;
 		this.arrowKeyDown = false;
+		this.arrowKeyLeft = false;
+		this.arrowKeyRight = false;
 		this.harvesterSpeed = 7;
 		var scoreFormat = new openfl_text_TextFormat("Verdana",24,12303291,true);
 		scoreFormat.align = 0;
@@ -2727,8 +2731,8 @@ var Harvester = function() {
 	var bitmapData = openfl_Assets.getBitmapData("assets/img/harvester_up.png");
 	var bitmap = new openfl_display_Bitmap(bitmapData);
 	this.addChild(bitmap);
-	bitmap.set_x(100);
-	bitmap.set_y(200);
+	bitmap.set_x(170);
+	bitmap.set_y(100);
 };
 $hxClasses["Harvester"] = Harvester;
 Harvester.__name__ = ["Harvester"];
@@ -19155,7 +19159,7 @@ var lime_utils_AssetCache = function() {
 	this.audio = new haxe_ds_StringMap();
 	this.font = new haxe_ds_StringMap();
 	this.image = new haxe_ds_StringMap();
-	this.version = 403187;
+	this.version = 725278;
 };
 $hxClasses["lime.utils.AssetCache"] = lime_utils_AssetCache;
 lime_utils_AssetCache.__name__ = ["lime","utils","AssetCache"];

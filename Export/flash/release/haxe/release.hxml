@@ -18,5 +18,5 @@
 -swf-lib Export/flash/release/obj/assets.swf
 -swf-version 11.2
 -swf Export/flash/release/bin/Miner.swf
--swf-header 500:500:60:333333
+-swf-header 448:300:60:333333
 -cp Export/flash/release/haxe
